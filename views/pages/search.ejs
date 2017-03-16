@@ -1,0 +1,45 @@
+<% layout('/layout') %>
+<% block('title', 'Book Trading Club')%>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="" defer></script>
+<script src="/script.js" defer></script>
+<div>
+  <h2> Welcome <%= userN[0].person %></h2>
+  <br>
+     <div class="form-group">
+<form role="form" method="POST">
+            <div class="wrapper">
+            <input style="border-style: inset" class="form-control input" placeholder="Book Name" value="">
+            <button style="margin:10px" class="btn-lg sbmit">Submit</button>
+            </div>
+
+            <hr>
+<br>
+<br>
+<div class="container"> 
+     <h3> Book Search Results </h3>
+        <div class="row bkcvr">
+        <div id="book_cover"></div>
+            <% results.forEach(function(res){ %>
+          <ul>
+            <div class="col-xs-6 col-xs-2"> 
+            <li> 
+              <div class="wrapper"> 
+                <img src=<%= res.img %>  width=120> <a class="btn-small okgo" id="<%= res.title %>" onClick="clic(this);" name="<%= res.author %>"  ><span class="glyphicon glyphicon-transfer"></span></a>
+                </div>
+                <h5> <%= res.title %> </h5>
+                <p> <%= res.author %> </p> 
+            </li>
+            </div> 
+         </ul>
+             <% }) %> 
+       </div> 
+    </div> 
+</div> 
+</form>  

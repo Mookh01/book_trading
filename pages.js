@@ -3,9 +3,10 @@ var http = require("http");
 var fs = require("fs");
 var mybooks = require('./models/book.js');
 var user = require('./models/user.js');
-
+var books = require('google-books-search');
 var router = express.Router();
 module.exports = router;
+
 
 router.get('/chosen', function(req, res) {});
 router.post('/chosen', function(req, res) {
@@ -49,9 +50,6 @@ router.post('/request', function(req, res) {
         }); 
 
     });
-
-
-
 
 });
 //user can remove their request. It will also remove request from owner. 

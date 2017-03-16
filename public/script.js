@@ -1,20 +1,7 @@
 //THIS FILE WILL BE TRIGGERED DUE TO USER ACTIONS
-var socket = io.connect();
-var form = document.querySelector('form'); //this will get our content from the form area
-var booklist = []; // booklist will have communial book list from all users. 
 
-//User submits book name
-form.addEventListener('submit', function(event) {
-    event.preventDefault();
-    var input = this.querySelector('input');
-    var text = input.value;
-    input.value = '';
-    socket.emit('add', text);
-    return false;
-});
-//Book Info is Dynamically created from API
-var counter = [];
-socket.on('create', function(results) {
+function searchSubmit(results) {
+    var counter = [];
     $('#book_cover').empty();
     var ul = $('<ul>')
     for (var i = 0; i < results.length; i++) {
@@ -40,13 +27,9 @@ socket.on('create', function(results) {
             }
         }
     }
-});
+};
 
-//Handles Incorrect or null inputs
-socket.on('code_error', function() {
-        alert("This Code Does Not Exist")
-    })
-    //A User chose a book to add to their list of "My Books"
+//A User chose a book to add to their list of "My Books"
 function clic(n) {
     var auth = n.id;
     var i = n.previousElementSibling.src;
@@ -60,7 +43,8 @@ function clic(n) {
             window.location = data.redirect;
         },
     });
-    window.location.reload();
+    // window.location.reload( );
+    window.location.href = "/"
 };
 //User is requesting a book
 function reQuest(r) {

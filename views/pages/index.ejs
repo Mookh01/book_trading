@@ -8,17 +8,17 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="" defer></script>
-<script src="/socket.io/socket.io.js" defer></script>
 <script src="/script.js" defer></script>
 <div>
   <h2> Welcome <%= userN[0].person %></h2>
   <br>
-     <div class="form-group">
-<form >
-            <div class="wrapper">
-            <input style="border-style: inset" class="form-control input" placeholder="Book Name">
-            <button style="margin:10px" class="btn-lg sbmit">Submit</button>
-            </div>
+
+    <form method="post"   action="/search">
+      <fieldset class="form-group">
+        <input name="title" type="text" placeholder="Title" value="" class="form-control">
+      </fieldset>
+      <button id="text" type="submit" value="Submit" class="btn btn-primary">Search</button><a href="/" class="btn btn-default">Cancel</a>
+    </form> 
             <hr>
 <br>
 <br>
@@ -27,7 +27,6 @@
         <div id="book_cover"></div>
     </div>
     </div>
-</form>  
 
 
 

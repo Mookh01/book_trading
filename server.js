@@ -6,10 +6,11 @@ var session = require('express-session');
 var books = require('google-books-search');
 var mybooks = require('./models/book.js');
 var user = require('./models/user.js');
-var routes = require('./routes/index.js');
 var bodyParser = require('body-parser');
 var Localstrategy = require('passport-local').Strategy;
 var passport = require("passport");
+var http = require("http");
+var fs = require("fs");
 var app = express();
 var flash = require("connect-flash");
 var mongoose = require('mongoose');
@@ -98,6 +99,35 @@ app.get('/', ensureAuthenticated, function(req, res) {
     })
 });
 
+
+app.get('/search', function(req, res) {});
+app.post('/search', function(req, res) {
+    var data = [];
+    var text = req.body.title;
+    var currentUser = req.user.username;
+    //GOOGLE API: Sorting info into array.
+    books.search(text, function(error, results) {
+        if (!error) {
+            for (var i = 0; i < results.length; i++) {
+                var title = results[i].title;
+                var author = results[i].authors;
+                var image = results[i].thumbnail;
+                data.push({ "img": image, "title": title, "author": author });
+            }
+            sendOut(data);
+        };
+
+        function sendOut(data) {
+            res.render('search', {
+                userN: [{ person: currentUser }],
+                results: data
+            });
+        };
+    });
+
+
+}); //--post submission
+
 app.get('/settings', ensureAuthenticated, function(req, res) {
     var userID = req.user._id;
     user.findById(userID, function(err, usr) {
@@ -138,6 +168,8 @@ app.get('/tributes', function(req, res) {
     })
 });
 
+
+
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
@@ -159,4 +191,4 @@ server.listen(app.get('port'), function() {
     console.log('Express is running on port ' + app.get('port'));
 });
 
-require('./routes')(server);
+// require('./routes')(server);
